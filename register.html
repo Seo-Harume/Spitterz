@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register Page</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .register-container {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .register-container h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      color: #555;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .register-btn {
+      width: 100%;
+      padding: 12px;
+      background: #764ba2;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .register-btn:hover {
+      background: #6b4491;
+    }
+
+    .bottom-text {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .bottom-text a {
+      color: #764ba2;
+      text-decoration: none;
+    }
+
+    .bottom-text a:hover {
+      text-decoration: underline;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 13px;
+      margin-top: 6px;
+      display: none;
+    }
+
+    input.error {
+      border: 1.5px solid red;
+      animation: shake 0.3s;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 38px;
+      cursor: pointer;
+      font-size: 16px;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <h2>Buat Akun</h2>
+    <form id="register-form">
+      <div class="form-group">
+        <label for="fullname">Nama Lengkap</label>
+        <input type="text" id="fullname" required placeholder="Nama lengkap" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" required placeholder="foresting@example.com" />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required placeholder="Buat password" />
+        <span class="toggle-password" toggle="#password">👁️</span>
+      </div>
+      <div class="form-group" id="confirm-group">
+        <label for="password-confirm">Konfirmasi Password</label>
+        <input type="password" id="password-confirm" required placeholder="Konfirmasi ulang password" />
+        <span class="toggle-password" toggle="#password-confirm">👁️</span>
+        <div class="error-message" id="error-msg">Konfirmasi password salah</div>
+      </div>
+      <button class="register-btn" type="submit">Daftar</button>
+      <div class="bottom-text">
+        Sudah punya akun? <a href="login.html">Login di sini</a>
+      </div>
+    </form>
+    <script>
+      const form = document.getElementById('register-form');
+      const password = document.getElementById('password');
+      const confirm = document.getElementById('password-confirm');
+      const errorMsg = document.getElementById('error-msg');
+
+      // Toggle show/hide password
+      const toggles = document.querySelectorAll('.toggle-password');
+      toggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+          const target = document.querySelector(toggle.getAttribute('toggle'));
+          const isPassword = target.getAttribute('type') === 'password';
+          target.setAttribute('type', isPassword ? 'text' : 'password');
+          toggle.textContent = isPassword ? '🚫' : '👁️';
+        });
+      });
+
+      form.addEventListener('submit', function (e) {
+        if (password.value.length < 8) {
+          e.preventDefault();
+          errorMsg.textContent = 'Password minimal 8 karakter';
+          password.classList.add('error');
+          confirm.classList.add('error');
+          errorMsg.style.display = 'block';
+          password.value = '';
+          confirm.value = '';
+          setTimeout(() => {
+            password.classList.remove('error');
+            confirm.classList.remove('error');
+          }, 300);
+          return;
+        }
+
+        if (password.value !== confirm.value) {
+          e.preventDefault();
+          errorMsg.textContent = 'Konfirmasi password salah';
+          confirm.classList.add('error');
+          password.classList.add('error');
+          errorMsg.style.display = 'block';
+          password.value = '';
+          confirm.value = '';
+          setTimeout(() => {
+            confirm.classList.remove('error');
+            password.classList.remove('error');
+          }, 300);
+        } else {
+          errorMsg.style.display = 'none';
+          confirm.classList.remove('error');
+          password.classList.remove('error');
+        }
+      });
+
+      confirm.addEventListener('input', () => {
+        errorMsg.style.display = 'none';
+        confirm.classList.remove('error');
+        password.classList.remove('error');
+      });
+    </script>
+  </div>
+</body>
+</html>
