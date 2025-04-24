@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Page</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #ffcc00, #ffffff);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-container {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 350px;
+    }
+
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .form-group label {
+      text-align: center;
+      margin-bottom: 6px;
+      color: #555;
+    }
+
+
+    .form-group input {
+      width: 100%;
+      padding: 10px 36px 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 38px;
+      cursor: pointer;
+      font-size: 16px;
+      user-select: none;
+    }
+
+
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background: #667eea;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .login-btn:hover {
+      background: #5a67d8;
+    }
+
+    .bottom-text {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .bottom-text a {
+      color: #667eea;
+      text-decoration: none;
+    }
+
+    .bottom-text a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Welcome Back!</h2>
+    <form action="index.html" method="POST">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required/>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required/>
+        <span class="toggle-password" onclick="togglePassword()">👁️</span>
+      </div>      
+      <button class="login-btn" type="submit">Login</button>
+      <div class="bottom-text">
+         Don't have Nouritture account? <a href="register.html">Register here</a>
+       </div>       
+    </form>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const pwd = document.getElementById("password");
+      const icon = document.querySelector(".toggle-password");
+  
+      if (pwd.type === "password") {
+        pwd.type = "text";
+        icon.textContent = "🚫";
+      } else {
+        pwd.type = "password";
+        icon.textContent = "👁️";
+      }
+    }
+  </script>
+  
+</body>
+</html>

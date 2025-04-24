@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Nouritture</title>
+   <link rel="icon" href="n.jpg" type="image/x-icon">
+   <style>
+      body {
+         font-family: Arial, sans-serif;
+         margin: 0;
+         padding: 0;
+      }
+      .logo {
+   font-size: 24px;
+   font-weight: bold;
+   color: white;
+   text-decoration: none;
+   transition: color 0.3s;
+}
+
+.logo:hover {
+color: #333;
+}
+
+      header {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         padding: 10px 20px;
+         background: linear-gradient(to right, #ffcc00, #ffffff);
+         color: white;
+      }
+
+      .search-bar {
+         flex: 1;
+         margin: 0 20px;
+         display: flex; /* Add this */
+         justify-content: center; /* Add this */
+      }
+      .search-bar input {
+   width: 100%;
+   max-width: 400px;
+   padding: 10px 15px;
+   padding-left: 35px;
+   border: none;
+   border-radius: 25px;
+   font-size: 16px;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+   background-color: #f9f9f9;
+   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='gray' viewBox='0 0 24 24'%3E%3Cpath d='M21 20l-5.9-5.9a7 7 0 1 0-1.4 1.4L20 21l1-1zM10 16a6 6 0 1 1 0-12 6 6 0 0 1 0 12z'/%3E%3C/svg%3E");
+   background-repeat: no-repeat;
+   background-position: 10px center;
+   background-size: 16px 16px;
+   transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+   outline: none;
+   background-color: white;
+   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+
+      .profile {
+         display: flex;
+         gap: 10px;
+      }
+
+      .profile a {
+color: #333;
+         text-decoration: none;
+         padding: 5px 10px;
+         border: 1px solid #333;
+         border-radius: 4px;
+      }
+
+      .profile a:hover {
+         background-color: #ffcc00;
+         color: white;
+      }
+
+      .banner-container {
+      position: relative;
+      width: 90%;
+      max-width: 800px; /* Controls how wide the banner can get */
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      margin: 30px auto; /* Center the banner horizontally */
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+   }
+
+
+   .banners {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      height: 100%;
+      border-radius: inherit;
+   }
+
+   .banner {
+      min-width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      border-radius: inherit;
+   }
+
+
+
+      .banner-dots {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 15px;
+   }
+
+   .banner-dots button {
+      width: 14px;
+      height: 14px;
+      border: none;
+      border-radius: 100%;
+      background-color: #ccc;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transform: scale(.75);
+   }
+
+   .banner-dots button:hover {
+      transform: scale(1);
+      background-color: #999;
+   }
+
+   .banner-dots button.active {
+      background-color: #333;
+      box-shadow: 0 0 0 3px #3332; /* Soft glow */
+      transform: scale(1.25);
+   }
+      .banner-dots button.active {
+         background-color: #333;
+      }
+
+      .banner:nth-child(1) {
+         background-color: #ff5733;
+      }
+
+      .banner:nth-child(2) {
+         background-color: #33c1ff;
+      }
+
+      .banner:nth-child(3) {
+         background-color: #75ff33;
+      }
+         .main-content {
+      transition: all 0.3s ease;
+   }
+
+   .main-content.shrink {
+      transform: scale(0.96);
+      opacity: 0.9;
+      filter: brightness(0.98);
+   }
+   </style>
+</head>
+<body>
+   <header>
+      <a href="index.html" class="logo">Nouritture</a>
+      <div class="search-bar">
+         <input type="text" placeholder="Search for something cool...">
+      </div>
+      <div class="profile">
+         <a href="login.html">Login</a>
+         <a href="register.html">Register</a>
+      </div>
+   </header>
+   
+   <div class="main-content">
+      <div class="banner-container">
+         <div class="banners">
+            <div class="banner"></div>
+            <div class="banner"></div>
+            <div class="banner"></div>
+         </div>
+      </div>
+      
+      <div class="banner-dots">
+         <button data-index="0" class="active"></button>
+         <button data-index="1"></button>
+         <button data-index="2"></button>
+      </div>
+   
+      <div style="height: 1000px; background-color: inherit; text-align: center; padding: 20px;">
+         <h2>Additional Content</h2>
+         <p>This is some extra content to make the page scrollable.</p>
+      </div>
+   </div>
+   
+   
+   <script>
+      const banners = document.querySelector('.banners');
+      const bannerDots = document.querySelectorAll('.banner-dots button');
+      const bannerCount = document.querySelectorAll('.banner').length;
+      let currentIndex = 0;
+      
+      // Update banner view
+      function updateBanner(index) {
+         currentIndex = index;
+         banners.style.transform = `translateX(-${currentIndex * 100}%)`;
+         bannerDots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentIndex);
+         });
+      }
+      
+      // Dot navigation
+      bannerDots.forEach((dot) => {
+         dot.addEventListener('click', () => {
+            const index = parseInt(dot.getAttribute('data-index'));
+            updateBanner(index);
+         });
+      });
+      
+      // Auto-slide every 10 seconds
+      function showNextBanner() {
+         currentIndex = (currentIndex + 1) % bannerCount;
+         updateBanner(currentIndex);
+      }
+      let interval = setInterval(showNextBanner, 10000);
+      
+      // Swipe functionality
+      let isDragging = false;
+      let startX = 0;
+      let currentTranslate = 0;
+      let prevTranslate = 0;
+      let animationID;
+      let currentSlide = 0;
+      
+      const bannerContainer = document.querySelector('.banner-container');
+      
+      bannerContainer.addEventListener('mousedown', dragStart);
+      bannerContainer.addEventListener('touchstart', dragStart, { passive: true });
+      bannerContainer.addEventListener('mouseup', dragEnd);
+      bannerContainer.addEventListener('mouseleave', dragEnd);
+      bannerContainer.addEventListener('touchend', dragEnd);
+      bannerContainer.addEventListener('mousemove', dragMove);
+      bannerContainer.addEventListener('touchmove', dragMove, { passive: true });
+      
+      function dragStart(e) {
+         isDragging = true;
+         startX = getPositionX(e);
+         cancelAnimationFrame(animationID);
+      }
+      
+      function dragMove(e) {
+         if (!isDragging) return;
+         const currentPosition = getPositionX(e);
+         const movedBy = currentPosition - startX;
+      
+         if (Math.abs(movedBy) < 5) return;
+      
+         banners.style.transition = 'none';
+         banners.style.transform = `translateX(${-currentIndex * 100 + (movedBy / bannerContainer.offsetWidth) * 100}%)`;
+      }
+      
+      function dragEnd(e) {
+         if (!isDragging) return;
+         isDragging = false;
+         const endX = getPositionX(e);
+         const movedBy = endX - startX;
+      
+         if (movedBy < -50 && currentIndex < bannerCount - 1) {
+            currentIndex++;
+         } else if (movedBy > 50 && currentIndex > 0) {
+            currentIndex--;
+         }
+      
+         updateBanner(currentIndex);
+         banners.style.transition = 'transform 0.5s ease-in-out';
+      
+         clearInterval(interval); // reset auto-slide timer
+         interval = setInterval(showNextBanner, 10000);
+      }
+      
+      function getPositionX(e) {
+         return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+      }
+      let lastScrollTop = 0;
+   const mainContent = document.querySelector(".main-content");
+
+   window.addEventListener("scroll", () => {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (currentScroll > lastScrollTop) {
+         // Scrolling down
+         mainContent.classList.add("shrink");
+      } else {
+         // Scrolling up
+         mainContent.classList.remove("shrink");
+      }
+
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+   });
+      </script>      
+</body>
+</html>
